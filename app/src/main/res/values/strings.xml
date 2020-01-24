@@ -6,4 +6,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="details">Details</string>
+    <string name="appointment_hint">Appointment Date</string>
+    <string name="number_hint">Phone Number</string>
+    <string name="email_hint">Email</string>
 </resources>
