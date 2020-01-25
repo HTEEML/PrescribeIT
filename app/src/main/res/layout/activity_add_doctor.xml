@@ -26,8 +26,8 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/inputFirstNameField"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/firstNameET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
@@ -42,8 +42,8 @@
                 android:textColorHint="@color/white"
                 android:textSize="25sp" />
 
-            <EditText
-                android:id="@+id/inputLastNameField"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/lastNameET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -62,6 +62,7 @@
 
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/detailsET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -72,11 +73,13 @@
             android:fontFamily="@font/ubuntu_regular"
             android:hint="@string/details"
             android:paddingLeft="10dp"
+            android:inputType="text"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="25sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/appointmentET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -84,14 +87,17 @@
             android:background="@drawable/add_update_fields_individual"
             android:drawableStart="@drawable/ic_date"
             android:drawablePadding="15dp"
+            android:focusable="false"
             android:fontFamily="@font/ubuntu_regular"
             android:hint="@string/appointment_hint"
+            android:singleLine="true"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="25sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/phoneNumberET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -102,11 +108,14 @@
             android:fontFamily="@font/ubuntu_regular"
             android:hint="@string/number_hint"
             android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:inputType="phone"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="25sp" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -115,6 +124,7 @@
             android:drawableStart="@drawable/ic_email"
             android:drawablePadding="15dp"
             android:fontFamily="@font/ubuntu_regular"
+            android:inputType="textEmailAddress"
             android:hint="@string/email_hint"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
@@ -136,7 +146,7 @@
         android:src="@drawable/ic_doctor_logo" />
 
     <Button
-        android:id="@+id/saveDoctor"
+        android:id="@+id/saveDoctorBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fieldsLayout"
