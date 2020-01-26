@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jarifjak.prescribeit.R;
 import com.jarifjak.prescribeit.activity.AddDoctorActivity;
 import com.jarifjak.prescribeit.activity.MainActivity;
+import com.jarifjak.prescribeit.activity.ViewDoctorActivity;
 import com.jarifjak.prescribeit.adapter.DashboardAdapter;
 import com.jarifjak.prescribeit.model.DashboardObject;
 
@@ -103,7 +104,14 @@ public class DoctorFragment extends Fragment implements DashboardAdapter.MyListe
     @Override
     public void onCardClick(int position) {
 
-        startActivity(new Intent(getActivity(), AddDoctorActivity.class));
-        //Toast.makeText(getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
+        if (position == 0) {
+
+            startActivity(new Intent(getActivity(), AddDoctorActivity.class));
+
+        } else if (position == 1) {
+
+            startActivity(new Intent(getActivity(), ViewDoctorActivity.class));
+
+        }
     }
 }
