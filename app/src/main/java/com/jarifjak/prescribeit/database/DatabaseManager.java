@@ -1,5 +1,6 @@
 package com.jarifjak.prescribeit.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -47,10 +48,13 @@ public class DatabaseManager {
         database = databaseHelper.getReadableDatabase();
         List<Doctor> doctors = new ArrayList<>();
 
-        String getAllDoctorsQuery = "SELECT " + Constants.FIRST_NAME + ", "
+        String getAllDoctorsQuery = "SELECT " + Constants.ID + ", "
+                                              + Constants.FIRST_NAME + ", "
                                               + Constants.LAST_NAME + ", "
                                               + Constants.DETAILS + ", "
-                                              + Constants.NUMBER + " FROM " + Constants.DOCTOR_TABLE_NAME;
+                                              + Constants.APPOINTMENT_DATE + ", "
+                                              + Constants.NUMBER + ", "
+                                              + Constants.EMAIL + " FROM " + Constants.DOCTOR_TABLE_NAME;
 
         Cursor cursor = database.rawQuery(getAllDoctorsQuery, null);
 
@@ -60,10 +64,13 @@ public class DatabaseManager {
 
                 Doctor d = new Doctor();
 
+                d.setId(cursor.getInt(cursor.getColumnIndex(Constants.ID)));
                 d.setFirstName(cursor.getString(cursor.getColumnIndex(Constants.FIRST_NAME)));
                 d.setLastName(cursor.getString(cursor.getColumnIndex(Constants.LAST_NAME)));
-                d.setNumber(cursor.getString(cursor.getColumnIndex(Constants.NUMBER)));
                 d.setDetails(cursor.getString(cursor.getColumnIndex(Constants.DETAILS)));
+                d.setAppointmentDate(cursor.getString(cursor.getColumnIndex(Constants.APPOINTMENT_DATE)));
+                d.setNumber(cursor.getString(cursor.getColumnIndex(Constants.NUMBER)));
+                d.setEmail(cursor.getString(cursor.getColumnIndex(Constants.EMAIL)));
 
                 doctors.add(d);
 
@@ -74,6 +81,61 @@ public class DatabaseManager {
         database.close();
 
         return doctors;
+    }
+
+    public boolean updateDoctor(Doctor doctor) {
+
+        database = databaseHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(Constants.FIRST_NAME, doctor.getFirstName());
+        contentValues.put(Constants.LAST_NAME, doctor.getLastName());
+        contentValues.put(Constants.DETAILS, doctor.getDetails());
+        contentValues.put(Constants.APPOINTMENT_DATE, doctor.getAppointmentDate());
+        contentValues.put(Constants.NUMBER, doctor.getNumber());
+        contentValues.put(Constants.EMAIL, doctor.getEmail());
+
+        String whereClause = Constants.ID + " = ?";
+        String[] whereArgs = {String.valueOf(doctor.getId())};
+
+        int isUpdated = database.update(Constants.DOCTOR_TABLE_NAME, contentValues, whereClause, whereArgs);
+
+        database.close();
+
+        return isUpdated > 0;
+    }
+
+
+    public Doctor getDoctorByName(String name) {
+
+        database = databaseHelper.getReadableDatabase();
+
+        Doctor doctor = new Doctor();
+
+        String query = "SELECT * FROM " + Constants.DOCTOR_TABLE_NAME + " WHERE " + Constants.FIRST_NAME +
+                " LIKE '%" + name + "%';";
+
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+
+            int doctorId = cursor.getInt(cursor.getColumnIndex(Constants.ID));
+            String firstName = cursor.getString(cursor.getColumnIndex(Constants.FIRST_NAME));
+            String lastName = cursor.getString(cursor.getColumnIndex(Constants.LAST_NAME));
+            String details = cursor.getString(cursor.getColumnIndex(Constants.DETAILS));
+            String appointment = cursor.getString(cursor.getColumnIndex(Constants.APPOINTMENT_DATE));
+            String number = cursor.getString(cursor.getColumnIndex(Constants.NUMBER));
+            String email = cursor.getString(cursor.getColumnIndex(Constants.EMAIL));
+
+
+            doctor = new Doctor(doctorId, firstName, lastName, details, appointment, number, email);
+
+            cursor.close();
+            database.close();
+        }
+
+        return doctor;
     }
 
 }

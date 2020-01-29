@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ViewDoctorProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="1dp"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="right">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="340sp"
+                android:layout_height="260sp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10sp"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/ic_doctor">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/doctorLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fieldsLayoutIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="35sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="35sp"
+                android:background="@drawable/layout_bg_white"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/nameFieldIndividual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@drawable/textview_bg_two"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:text="@string/full_name"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/detailsFieldIndividual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:background="@drawable/textview_bg_two"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:text="@string/details"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appointmentFieldIndividual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:background="@drawable/textview_bg_two"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:text="@string/appointment_hint"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/phoneFieldIndividual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:background="@drawable/textview_bg_two"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:text="@string/number_hint"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/emailFieldIndividual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/textview_bg_two"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:text="@string/email_hint"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fieldsLayoutIndividual"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/save_button_bg"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/update_button"
+                android:textAllCaps="false"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        app:srcCompat="@android:drawable/ic_menu_call"
+        tools:ignore="RtlHardcoded" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

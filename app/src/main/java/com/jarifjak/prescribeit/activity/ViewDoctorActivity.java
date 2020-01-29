@@ -1,5 +1,6 @@
 package com.jarifjak.prescribeit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.google.gson.Gson;
 import com.jarifjak.prescribeit.R;
 import com.jarifjak.prescribeit.adapter.ViewDoctorAdapter;
 import com.jarifjak.prescribeit.database.DatabaseManager;
@@ -27,6 +29,7 @@ public class ViewDoctorActivity extends AppCompatActivity implements AdapterView
 
     private DatabaseManager databaseManager;
     private ViewDoctorAdapter adapter;
+    private List<Doctor> doctors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class ViewDoctorActivity extends AppCompatActivity implements AdapterView
 
                 databaseManager = new DatabaseManager(ViewDoctorActivity.this);
 
-                List<Doctor> doctors = databaseManager.getAllDoctors();
+                doctors = databaseManager.getAllDoctors();
 
                 if (doctors.isEmpty()) {
 
@@ -74,6 +77,9 @@ public class ViewDoctorActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        String jsonObject = new Gson().toJson(doctors.get(position));
 
+        startActivity(new Intent(ViewDoctorActivity.this, ViewDoctorProfileActivity.class)
+                .putExtra("doctor", jsonObject));
     }
 }
