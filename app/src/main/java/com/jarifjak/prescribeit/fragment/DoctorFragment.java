@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jarifjak.prescribeit.R;
 import com.jarifjak.prescribeit.activity.AddDoctorActivity;
 import com.jarifjak.prescribeit.activity.MainActivity;
+import com.jarifjak.prescribeit.activity.SearchActivity;
 import com.jarifjak.prescribeit.activity.ViewDoctorActivity;
 import com.jarifjak.prescribeit.adapter.DashboardAdapter;
 import com.jarifjak.prescribeit.model.DashboardObject;
@@ -111,6 +112,10 @@ public class DoctorFragment extends Fragment implements DashboardAdapter.MyListe
         } else if (position == 1) {
 
             startActivity(new Intent(getActivity(), ViewDoctorActivity.class));
+
+        } else if (position == 2) {
+
+            startActivity(new Intent(getActivity(), SearchActivity.class));
 
         }
     }

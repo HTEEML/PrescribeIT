@@ -143,7 +143,7 @@ public class AddDoctorActivity extends AppCompatActivity {
                 return;
             }
 
-            Doctor doctor = new Doctor(0, firstName, lastName, number, details, appointment, email);
+            Doctor doctor = new Doctor(0, firstName, lastName, details, appointment, number, email);
             boolean isInserted = databaseManager.insertDoctor(doctor);
 
             String message = (isInserted) ? "Inserted!!" : "Failed!!";

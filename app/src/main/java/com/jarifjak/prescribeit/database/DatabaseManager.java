@@ -49,12 +49,12 @@ public class DatabaseManager {
         List<Doctor> doctors = new ArrayList<>();
 
         String getAllDoctorsQuery = "SELECT " + Constants.ID + ", "
-                                              + Constants.FIRST_NAME + ", "
-                                              + Constants.LAST_NAME + ", "
-                                              + Constants.DETAILS + ", "
-                                              + Constants.APPOINTMENT_DATE + ", "
-                                              + Constants.NUMBER + ", "
-                                              + Constants.EMAIL + " FROM " + Constants.DOCTOR_TABLE_NAME;
+                + Constants.FIRST_NAME + ", "
+                + Constants.LAST_NAME + ", "
+                + Constants.DETAILS + ", "
+                + Constants.APPOINTMENT_DATE + ", "
+                + Constants.NUMBER + ", "
+                + Constants.EMAIL + " FROM " + Constants.DOCTOR_TABLE_NAME;
 
         Cursor cursor = database.rawQuery(getAllDoctorsQuery, null);
 
@@ -118,24 +118,60 @@ public class DatabaseManager {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor.moveToFirst()) {
+        if (cursor.getCount() != 0) {
 
-            int doctorId = cursor.getInt(cursor.getColumnIndex(Constants.ID));
-            String firstName = cursor.getString(cursor.getColumnIndex(Constants.FIRST_NAME));
-            String lastName = cursor.getString(cursor.getColumnIndex(Constants.LAST_NAME));
-            String details = cursor.getString(cursor.getColumnIndex(Constants.DETAILS));
-            String appointment = cursor.getString(cursor.getColumnIndex(Constants.APPOINTMENT_DATE));
-            String number = cursor.getString(cursor.getColumnIndex(Constants.NUMBER));
-            String email = cursor.getString(cursor.getColumnIndex(Constants.EMAIL));
+            if (cursor.moveToFirst()) {
+
+                int doctorId = cursor.getInt(cursor.getColumnIndex(Constants.ID));
+                String firstName = cursor.getString(cursor.getColumnIndex(Constants.FIRST_NAME));
+                String lastName = cursor.getString(cursor.getColumnIndex(Constants.LAST_NAME));
+                String details = cursor.getString(cursor.getColumnIndex(Constants.DETAILS));
+                String appointment = cursor.getString(cursor.getColumnIndex(Constants.APPOINTMENT_DATE));
+                String number = cursor.getString(cursor.getColumnIndex(Constants.NUMBER));
+                String email = cursor.getString(cursor.getColumnIndex(Constants.EMAIL));
 
 
-            doctor = new Doctor(doctorId, firstName, lastName, details, appointment, number, email);
+                doctor = new Doctor(doctorId, firstName, lastName, details, appointment, number, email);
 
-            cursor.close();
-            database.close();
+                cursor.close();
+                database.close();
+
+            }
+
+            return doctor;
         }
 
-        return doctor;
+        query = "SELECT * FROM " + Constants.DOCTOR_TABLE_NAME + " WHERE " + Constants.LAST_NAME +
+                " LIKE '%" + name + "%';";
+
+        cursor = database.rawQuery(query, null);
+
+        if (cursor.getCount() != 0) {
+
+            if (cursor.moveToFirst()) {
+
+                int doctorId = cursor.getInt(cursor.getColumnIndex(Constants.ID));
+                String firstName = cursor.getString(cursor.getColumnIndex(Constants.FIRST_NAME));
+                String lastName = cursor.getString(cursor.getColumnIndex(Constants.LAST_NAME));
+                String details = cursor.getString(cursor.getColumnIndex(Constants.DETAILS));
+                String appointment = cursor.getString(cursor.getColumnIndex(Constants.APPOINTMENT_DATE));
+                String number = cursor.getString(cursor.getColumnIndex(Constants.NUMBER));
+                String email = cursor.getString(cursor.getColumnIndex(Constants.EMAIL));
+
+
+                doctor = new Doctor(doctorId, firstName, lastName, details, appointment, number, email);
+
+                cursor.close();
+                database.close();
+
+            }
+
+            return doctor;
+        }
+
+        database.close();
+        return null;
+
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.google.gson.Gson;
 import com.jarifjak.prescribeit.R;
@@ -44,9 +45,11 @@ public class SearchActivity extends AppCompatActivity {
     LinearLayout demoFields;
     @BindView(R.id.searchLayout)
     LinearLayout searchLayout;
+    @BindView(R.id.noResultFoundTV)
+    AppCompatTextView noResultFoundTV;
 
     private DatabaseManager databaseManager;
-    private DatePickerDialog datePickerDialog;
+    DatePickerDialog datePickerDialog;
     private String creationTime;
     private Doctor doctor;
     private int id;
@@ -63,16 +66,14 @@ public class SearchActivity extends AppCompatActivity {
 
         if (jsonObject != null) {
 
-            initializeFields(jsonObject);
+            doctor = new Gson().fromJson(jsonObject, Doctor.class);
+            initializeFields(doctor);
         }
 
     }
 
 
-
-    void initializeFields(String jsonObject) {
-
-        doctor = new Gson().fromJson(jsonObject, Doctor.class);
+    private void initializeFields(Doctor doctor) {
 
         id = doctor.getId();
         firstNameET.setText(doctor.getFirstName());
@@ -85,6 +86,7 @@ public class SearchActivity extends AppCompatActivity {
         numberET.setText(doctor.getNumber());
         emailET.setText(doctor.getEmail());
 
+        noResultFoundTV.setVisibility(View.GONE);
         demoFields.setVisibility(View.VISIBLE);
     }
 
@@ -149,11 +151,26 @@ public class SearchActivity extends AppCompatActivity {
                 return;
             }
 
-            doctor = new Doctor(id, firstName, lastName, number, details, appointment, email);
+            doctor = new Doctor(id, firstName, lastName, details, appointment, number, email);
             boolean isUpdated = databaseManager.updateDoctor(doctor);
 
             String message = (isUpdated) ? "Updated!!" : "Failed to Updated!!";
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+        } else if (view.getId() == R.id.searchButton) {
+
+            doctor = databaseManager.getDoctorByName(searchDoctorET.getText().toString().trim());
+
+            if (doctor == null) {
+
+                demoFields.setVisibility(View.GONE);
+                noResultFoundTV.setVisibility(View.VISIBLE);
+                noResultFoundTV.setText("No Result Found!");
+
+                return;
+            }
+
+            initializeFields(doctor);
         }
 
     }
