@@ -21,6 +21,9 @@
     <string name="save_button">Save</string>
     <string name="enter_doctor_name">Enter Doctor Name</string>
     <string name="search">Search</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="doctors_name">Doctor\'s Name</string>
+    <string name="date">Date</string>
 
 
 </resources>

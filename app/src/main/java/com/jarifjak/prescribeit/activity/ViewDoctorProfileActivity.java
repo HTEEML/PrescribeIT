@@ -97,8 +97,9 @@ public class ViewDoctorProfileActivity extends AppCompatActivity {
         intent.setData(Uri.parse("tel:" + number));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},400);
-            return;
+
         }
 
         startActivity(intent);

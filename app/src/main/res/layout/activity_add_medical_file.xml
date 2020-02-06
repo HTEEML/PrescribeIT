@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AddMedicalFileActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/medicalHistoryIV"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/image_bg"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_blank_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/takePhotoTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicalHistoryIV"
+        android:layout_margin="20dp"
+        android:background="@drawable/layout_bg_offwhite"
+        android:drawableStart="@drawable/ic_add_photo"
+        android:focusable="false"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/take_photo"
+        android:textColor="@color/deepBlue"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/doctorNameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/takePhotoTV"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/layout_bg_offwhite"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center"
+        android:hint="@string/doctors_name"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/deepBlue"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/detailsET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/doctorNameET"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/layout_bg_offwhite"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center"
+        android:hint="@string/details"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/deepBlue"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dateTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailsET"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/layout_bg_offwhite"
+        android:focusable="false"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/date"
+        android:textColor="@color/orange"
+        android:textSize="25sp" />
+
+</RelativeLayout>

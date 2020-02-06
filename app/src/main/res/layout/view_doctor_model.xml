@@ -39,6 +39,7 @@
         android:fontFamily="@font/ubuntu_regular"
         android:textColor="@color/orange"
         android:textSize="25sp"
-        tools:text="Number" />
+        tools:text="Number"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>

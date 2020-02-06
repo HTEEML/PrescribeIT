@@ -19,4 +19,9 @@ public interface Constants {
     String APPOINTMENT_DATE = "appointment";
     String NUMBER = "number";
     String EMAIL = "email";
+
+    //MedicalHistory related
+
+    int REQUEST_IMAGE_CAPTURE = 1;
+    int PERMISSION_REQUEST_CODE = 2;
 }

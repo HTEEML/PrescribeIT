@@ -2,6 +2,7 @@ package com.jarifjak.prescribeit.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jarifjak.prescribeit.R;
+import com.jarifjak.prescribeit.activity.AddMedicalFileActivity;
 import com.jarifjak.prescribeit.adapter.DashboardAdapter;
 import com.jarifjak.prescribeit.model.DashboardObject;
 
@@ -25,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MedicalFileFragment extends Fragment implements DashboardAdapter.MyListener {
+public class MedicalHistoryFragment extends Fragment implements DashboardAdapter.MyListener {
 
 
     @BindView(R.id.medical_file_recycler_view)
@@ -35,9 +37,9 @@ public class MedicalFileFragment extends Fragment implements DashboardAdapter.My
 
     private int[] icons =  {R.drawable.ic_add_medical_files, R.drawable.ic_view_medical_file};
     private int[] drawbles = {R.drawable.card_box, R.drawable.card_box_purple};
-    private String[] titles = {"Add Medical Files", "View Medical Files"};
+    private String[] titles = {"Add Medical File", "View Medical History"};
 
-    public MedicalFileFragment() {
+    public MedicalHistoryFragment() {
 
     }
 
@@ -45,7 +47,7 @@ public class MedicalFileFragment extends Fragment implements DashboardAdapter.My
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_medical_file, container, false);
+        View view = inflater.inflate(R.layout.fragment_medical_history, container, false);
         ButterKnife.bind(this, view);
 
         initialize();
@@ -90,6 +92,9 @@ public class MedicalFileFragment extends Fragment implements DashboardAdapter.My
     @Override
     public void onCardClick(int position) {
 
-        Toast.makeText(getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
+        if (position == 0) {
+
+            startActivity(new Intent(getActivity(), AddMedicalFileActivity.class));
+        }
     }
 }

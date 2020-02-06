@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jarifjak.prescribeit.fragment.DoctorFragment;
-import com.jarifjak.prescribeit.fragment.MedicalFileFragment;
+import com.jarifjak.prescribeit.fragment.MedicalHistoryFragment;
 import com.jarifjak.prescribeit.fragment.SettingsFragment;
 import com.jarifjak.prescribeit.R;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.nav_medical_file:
-                selectedFragment = new MedicalFileFragment();
+                selectedFragment = new MedicalHistoryFragment();
                 break;
 
             case R.id.nav_settings:

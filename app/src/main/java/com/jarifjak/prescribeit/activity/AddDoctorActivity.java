@@ -38,9 +38,10 @@ public class AddDoctorActivity extends AppCompatActivity {
     @BindView(R.id.saveDoctorBTN)
     Button saveDoctor;
 
-    private String creationTime;
     private DatabaseManager databaseManager;
+    private Calendar calendar;
     private DatePickerDialog datePickerDialog;
+    private String creationTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +86,11 @@ public class AddDoctorActivity extends AppCompatActivity {
     @OnClick({R.id.saveDoctorBTN, R.id.appointmentET})
     public void onViewClicked(View view) {
 
-
         if (view.getId() == R.id.appointmentET) {
 
             appointmentET.setHint("");
+
+            calendar = Calendar.getInstance();
 
             datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -99,7 +101,8 @@ public class AddDoctorActivity extends AppCompatActivity {
 
                     appointmentET.setText(creationTime);
                 }
-            }, 2018, 7, 29);
+
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
             datePickerDialog.show();
 
