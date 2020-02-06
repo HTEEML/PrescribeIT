@@ -30,13 +30,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Constants.NUMBER + " TEXT,"
                 + Constants.EMAIL + " TEXT)";
 
+        String mHistoryTableQuery = "CREATE TABLE IF NOT EXISTS " + Constants.M_HISTORY_TABLE_NAME + "("
+                + Constants.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Constants.IMAGE_PATH + " TEXT,"
+                + Constants.DOCTOR_NAME + " TEXT,"
+                + Constants.DETAILS + " TEXT,"
+                + Constants.DATE + " TEXT)";
+
         db.execSQL(doctorTableQuery);
+        db.execSQL(mHistoryTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + Constants.DOCTOR_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.M_HISTORY_TABLE_NAME);
+
         onCreate(db);
     }
 

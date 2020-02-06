@@ -8,7 +8,7 @@ public interface Constants {
     int DB_VERSION = 1;
 
 
-    //Table telated
+    //Doctor Table related
 
     String DOCTOR_TABLE_NAME = "doctors";
 
@@ -20,8 +20,15 @@ public interface Constants {
     String NUMBER = "number";
     String EMAIL = "email";
 
-    //MedicalHistory related
+    //capture image related
 
     int REQUEST_IMAGE_CAPTURE = 1;
     int PERMISSION_REQUEST_CODE = 2;
+
+    //Medical History Table related
+
+    String M_HISTORY_TABLE_NAME = "medical_history";
+    String DOCTOR_NAME = "doctor_name";
+    String DATE = "date";
+    String IMAGE_PATH = "image_path";
 }

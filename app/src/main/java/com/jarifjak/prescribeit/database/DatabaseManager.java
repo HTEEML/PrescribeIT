@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jarifjak.prescribeit.model.Doctor;
+import com.jarifjak.prescribeit.model.MedicalHistory;
 import com.jarifjak.prescribeit.utils.Constants;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ public class DatabaseManager {
         databaseHelper = new DatabaseHelper(context);
 
     }
+
+
+    /**
+     * Doctor Related
+     **/
+
 
     public boolean insertDoctor(Doctor doctor) {
 
@@ -42,6 +49,7 @@ public class DatabaseManager {
 
         return isInserted > 0;
     }
+
 
     public List<Doctor> getAllDoctors() {
 
@@ -171,6 +179,62 @@ public class DatabaseManager {
 
         database.close();
         return null;
+
+    }
+
+    /**
+     * Medical History Related
+     **/
+
+
+    public boolean insertMedicalHistory(MedicalHistory medicalHistory) {
+
+        database = databaseHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(Constants.IMAGE_PATH, medicalHistory.getImagePath());
+        contentValues.put(Constants.DOCTOR_NAME, medicalHistory.getDoctorName());
+        contentValues.put(Constants.DETAILS, medicalHistory.getDetails());
+        contentValues.put(Constants.DATE, medicalHistory.getDate());
+
+        long isInserted = database.insert(Constants.M_HISTORY_TABLE_NAME, null, contentValues);
+
+        database.close();
+
+        return isInserted > 0;
+    }
+
+    public List<MedicalHistory> getAllMedicalHistory() {
+
+        database = databaseHelper.getReadableDatabase();
+        List<MedicalHistory> medicalHistories = new ArrayList<>();
+
+        String getAllMHistoriesQuery = "SELECT * FROM " + Constants.M_HISTORY_TABLE_NAME;
+
+        Cursor cursor = database.rawQuery(getAllMHistoriesQuery, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                MedicalHistory m = new MedicalHistory();
+
+                m.setId(cursor.getInt(cursor.getColumnIndex(Constants.ID)));
+                m.setDoctorName(cursor.getString(cursor.getColumnIndex(Constants.DOCTOR_NAME)));
+                m.setImagePath(cursor.getString(cursor.getColumnIndex(Constants.IMAGE_PATH)));
+                m.setDetails(cursor.getString(cursor.getColumnIndex(Constants.DETAILS)));
+                m.setDate(cursor.getString(cursor.getColumnIndex(Constants.DATE)));
+
+                medicalHistories.add(m);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        database.close();
+
+        return medicalHistories;
 
     }
 

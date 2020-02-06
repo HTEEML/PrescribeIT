@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -29,6 +31,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.jarifjak.prescribeit.R;
+import com.jarifjak.prescribeit.database.DatabaseManager;
+import com.jarifjak.prescribeit.model.MedicalHistory;
 import com.jarifjak.prescribeit.utils.Constants;
 
 import java.io.File;
@@ -59,10 +63,12 @@ public class AddMedicalFileActivity extends AppCompatActivity {
     @BindView(R.id.dateTV)
     AppCompatTextView dateTV;
 
+    private DatabaseManager databaseManager;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private String creationTime;
-    private String pathToImage;
+    private String filePath;
+    private boolean imageCreationFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +76,11 @@ public class AddMedicalFileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medical_file);
         ButterKnife.bind(this);
+
+        databaseManager = new DatabaseManager(this);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
 
@@ -111,6 +122,8 @@ public class AddMedicalFileActivity extends AppCompatActivity {
 
     private void takePhoto() {
 
+        imageCreationFlag = false;
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, Constants.PERMISSION_REQUEST_CODE);
@@ -120,6 +133,7 @@ public class AddMedicalFileActivity extends AppCompatActivity {
             dispatchTakePictureIntent();
         }
     }
+
 
     void dispatchTakePictureIntent() {
 
@@ -131,6 +145,7 @@ public class AddMedicalFileActivity extends AppCompatActivity {
 
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -165,7 +180,6 @@ public class AddMedicalFileActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-
                     }
                 }
             }
@@ -195,6 +209,8 @@ public class AddMedicalFileActivity extends AppCompatActivity {
                 fileOutputStream.flush();
                 fileOutputStream.close();
 
+                imageCreationFlag = true;
+
 
             } catch (IOException e) {
 
@@ -219,7 +235,7 @@ public class AddMedicalFileActivity extends AppCompatActivity {
 
         String fileName = "PI_" + System.currentTimeMillis() + ".jpeg";
         String dirPath = "PrescribeIT";
-        String filePath = "PrescribeIT" + File.separatorChar + fileName;
+        filePath = "PrescribeIT" + File.separatorChar + fileName;
 
         File file = new File(Objects.requireNonNull(getApplicationContext().getExternalFilesDir(null)).getAbsolutePath(), dirPath);
 
@@ -232,6 +248,71 @@ public class AddMedicalFileActivity extends AppCompatActivity {
 
         return imageFile;
     }
+
+    private void saveMedicalHistory() {
+
+        String doctorName = doctorNameET.getText().toString().trim();
+        String details = detailsET.getText().toString().trim();
+
+        if (doctorName.length() == 0 || details.length() == 0 || creationTime.length() ==0 || !imageCreationFlag) {
+
+            if (doctorName.length() == 0)
+
+                doctorNameET.setError("Please Enter Doctor's Name!!");
+
+            else if (details.length() == 0)
+
+                detailsET.setError("Please Enter Doctor's Details!!");
+
+            else if (creationTime.length() == 0)
+
+                dateTV.setError("Please Select Date!!");
+
+            else if (imageCreationFlag)
+
+                Toast.makeText(this, "Please Select Image", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        MedicalHistory medicalHistory = new MedicalHistory(filePath, doctorName, details, creationTime);
+        boolean isInserted = databaseManager.insertMedicalHistory(medicalHistory);
+
+        if (isInserted)
+
+            Toast.makeText(this, "Inserted!!", Toast.LENGTH_SHORT).show();
+
+        else
+
+            Toast.makeText(this, "Failed!!", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.save_action, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+
+            finish();
+
+        } else if (item.getItemId() == R.id.action_save) {
+
+            saveMedicalHistory();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 }

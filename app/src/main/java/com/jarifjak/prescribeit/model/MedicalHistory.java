@@ -2,6 +2,7 @@ package com.jarifjak.prescribeit.model;
 
 public class MedicalHistory {
 
+    private int id;
     private String imagePath;
     private String doctorName;
     private String details;
@@ -18,6 +19,10 @@ public class MedicalHistory {
         this.details = details;
         this.date = date;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getImagePath() {
         return imagePath;
