@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jarifjak.prescribeit.R;
 import com.jarifjak.prescribeit.activity.AddMedicalFileActivity;
+import com.jarifjak.prescribeit.activity.ViewMedicalHistoryActivity;
 import com.jarifjak.prescribeit.adapter.DashboardAdapter;
 import com.jarifjak.prescribeit.model.DashboardObject;
 
@@ -95,6 +96,11 @@ public class MedicalHistoryFragment extends Fragment implements DashboardAdapter
         if (position == 0) {
 
             startActivity(new Intent(getActivity(), AddMedicalFileActivity.class));
+
+        } else if (position == 1) {
+
+            startActivity(new Intent(getActivity(), ViewMedicalHistoryActivity.class));
+
         }
     }
 }
